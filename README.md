@@ -11,6 +11,68 @@ We have tried different models for predictions.
 * Random Forest 
 * XG Boost
 
+```Python
+def models(X_train, y_train):
+    
+    # logistic regression
+    from sklearn.linear_model import LogisticRegression
+    log = LogisticRegression(random_state=0)
+    log.fit(X_train, y_train)
+    
+    # kNN
+    from sklearn.neighbors import KNeighborsClassifier
+    knn = KNeighborsClassifier(n_neighbors=5, metric='minkowski', p=2)
+    knn.fit(X_train, y_train)
+    
+    # SVC
+    from sklearn.svm import SVC
+    svc_rbf = SVC(kernel='rbf', random_state=0)
+    svc_rbf.fit(X_train, y_train)
+    
+    # Gaussian Naive Bayes
+    from sklearn.naive_bayes import GaussianNB
+    gauss = GaussianNB()
+    gauss.fit(X_train, y_train)
+    
+    # Decision tree
+    from sklearn.tree import DecisionTreeClassifier
+    tree = DecisionTreeClassifier(criterion='entropy', random_state=0)
+    tree.fit(X_train, y_train)
+    
+    # Random forest
+    from sklearn.ensemble import RandomForestClassifier
+    forest = RandomForestClassifier(n_estimators=10, criterion='entropy', random_state=0)
+    forest.fit(X_train, y_train)
+    
+    # XGBoost
+    from xgboost import XGBClassifier
+    xgb = XGBClassifier(use_label_encoder=False, eval_metric='mlogloss')
+    xgb.fit(X_train, y_train)
+
+    
+    # training accuracy
+    print('[0] Logistic Regression training accuracy: ', log.score(X_train, y_train))
+    print('[1] KNN training accuracy', knn.score(X_train, y_train))
+    print('[2] SVC training accuracy', svc_rbf.score(X_train, y_train))
+    print('[3] Naive Bayes training accuracy', gauss.score(X_train, y_train))
+    print('[4] Tree training accuracy', tree.score(X_train, y_train))
+    print('[5] Random forest training accuracy', forest.score(X_train, y_train))
+    print('[6] XGBoost training accuracy', xgb.score(X_train, y_train))
+    
+    return log, knn, svc_rbf, gauss, tree, forest, xgb
+```
+<h3>Train accuracy for different models</h3>
+
+Model | Train Accuracy
+--------|-------------
+Logistic regression train accuracy | 0.83
+Nearest neighbor train accuracy | 0.73 
+Support vector train accuracy | 0.67 
+Naive Bayes train accuracy | 0.81 
+Decision tree train accuracy | 1.0 
+Random forest train accuracy | 0.98
+XGBoost train accuracy | 1.0
+
 <h3>Test accuracy for different models-</h3> 
 
 Model | Test Accuracy
